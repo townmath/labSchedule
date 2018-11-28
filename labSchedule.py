@@ -11,14 +11,16 @@ from datetime import datetime
 #print (datetime.now().strftime('%H'))
 
 root = tk.Tk()
-#all images shrunk to 150 pixels tall, this part is tedious but necessary
-cpp=ImageTk.PhotoImage(Image.open("cpp.png"))
-java=ImageTk.PhotoImage(Image.open("java.png"))
-office=ImageTk.PhotoImage(Image.open("office.png"))
+#all images shrunk to 150 pixels tall
+#this part is tedious but necessary
+#scc image from https://www.scc.losrios.edu/styleguide/logos-marks/
 scc=ImageTk.PhotoImage(Image.open("scc.png"))
+#linux image: the copyright holder of this file allows anyone to use it for
+#any purpose, provided that the copyright holder is properly attributed.
+#Redistribution, derivative work, commercial use, and all other use is
+#permitted.
+#Attribution: lewing@isc.tamu.edu Larry Ewing and The GIMP
 linux=ImageTk.PhotoImage(Image.open("linux.png"))
-cisco=ImageTk.PhotoImage(Image.open("cisco.png"))
-html=ImageTk.PhotoImage(Image.open("html.png"))
 #open file
 def loadSchedule():#oclock,dow):#testing
    curr=datetime.now().strftime('%H %a')
