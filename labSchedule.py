@@ -7,20 +7,25 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import csv
 from datetime import datetime
+import os
 #print (datetime.now())
 #print (datetime.now().strftime('%H'))
 
 root = tk.Tk()
-#all images shrunk to 150 pixels tall
-#this part is tedious but necessary
+#all images shrunk to 150 pixels tall (or wide if it was rectangular)
+#and given clear backgrounds
 #scc image from https://www.scc.losrios.edu/styleguide/logos-marks/
-scc=ImageTk.PhotoImage(Image.open("scc.png"))
 #linux image: the copyright holder of this file allows anyone to use it for
 #any purpose, provided that the copyright holder is properly attributed.
 #Redistribution, derivative work, commercial use, and all other use is
 #permitted.
 #Attribution: lewing@isc.tamu.edu Larry Ewing and The GIMP
-linux=ImageTk.PhotoImage(Image.open("linux.png"))
+imgDict={}
+imgDir="."
+for fileName in os.listdir(imgDir):
+   if fileName.endswith("png"):
+      imgDict[fileName[:-4]]=ImageTk.PhotoImage(Image.open(imgDir+'\\'+fileName))
+
 #open file
 def loadSchedule():#oclock,dow):#testing
    curr=datetime.now().strftime('%H %a')
@@ -52,13 +57,14 @@ def loadSchedule():#oclock,dow):#testing
                elif j==5:
                   for image in col.split(' '):
                      print(image)
-                     img=eval(image)
+                     img=imgDict[image]#eval(image)
                      #img = ImageTk.PhotoImage(Image.open(path)) #only shows last image
                      label = tk.Label(root, image=img)
                      label.grid(row=i,column=j)
                      j+=1
                j+=1
             i+=1
+   root.geometry("") #resizes the window to fit all of the children
    delay=1000*60*15 #milli/sec*sec/min*min = 15 minutes
    root.after(delay,loadSchedule)
 
